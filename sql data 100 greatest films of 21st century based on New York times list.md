@@ -1,0 +1,133 @@
+Here's an SQLite database file (as a `.sql` script) that you can import into your website. It includes **all 100 movies** with **IMDb links** and **poster image URLs**:
+
+```sql
+-- Movies SQLite Database
+CREATE TABLE movies (
+    id INTEGER PRIMARY KEY,
+    title TEXT NOT NULL,
+    imdb_url TEXT NOT NULL,
+    poster_url TEXT NOT NULL
+);
+
+-- Insert all 100 movies with IMDb links and poster URLs
+INSERT INTO movies (title, imdb_url, poster_url) VALUES
+('Parasite', 'https://www.imdb.com/title/tt6751668/', 'https://m.media-amazon.com/images/M/MV5BYWZjMjk3ZTItODQ2ZC00NTY5LWE0ZDYtZTI3MjcwN2Q5NTVkXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg'),
+('Mulholland Drive', 'https://www.imdb.com/title/tt0166924/', 'https://m.media-amazon.com/images/M/MV5BMTgzNjY4NjE1OV5BMl5BanBnXkFtZTYwMjYzNjc5._V1_FMjpg_UX1000_.jpg'),
+('There Will Be Blood', 'https://www.imdb.com/title/tt0469494/', 'https://m.media-amazon.com/images/M/MV5BMjAxODQ4MDU5NV5BMl5BanBnXkFtZTcwMDU4MjU1MQ@@._V1_FMjpg_UX1000_.jpg'),
+('In the Mood for Love', 'https://www.imdb.com/title/tt0118694/', 'https://m.media-amazon.com/images/M/MV5BYjZjODRlMjQtMjJlYy00ZDBjLTkyYTQtZGQxZTk5NzJhYmNmXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_FMjpg_UX1000_.jpg'),
+('Moonlight', 'https://www.imdb.com/title/tt4975722/', 'https://m.media-amazon.com/images/M/MV5BNzQxNTIyODAxMV5BMl5BanBnXkFtZTgwNzQyMDA3OTE@._V1_FMjpg_UX1000_.jpg'),
+('No Country for Old Men', 'https://www.imdb.com/title/tt0477348/', 'https://m.media-amazon.com/images/M/MV5BMjA5Njk3MjM4OV5BMl5BanBnXkFtZTcwMTc5MTE1MQ@@._V1_FMjpg_UX1000_.jpg'),
+('Eternal Sunshine of the Spotless Mind', 'https://www.imdb.com/title/tt0338013/', 'https://m.media-amazon.com/images/M/MV5BMTY4NzcwODg3Nl5BMl5BanBnXkFtZTcwNTEwOTMyMw@@._V1_FMjpg_UX1000_.jpg'),
+('Get Out', 'https://www.imdb.com/title/tt5052448/', 'https://m.media-amazon.com/images/M/MV5BMjUxMDQwNjcyNl5BMl5BanBnXkFtZTgwNzcwMzc0MTI@._V1_FMjpg_UX1000_.jpg'),
+('Spirited Away', 'https://www.imdb.com/title/tt0245429/', 'https://m.media-amazon.com/images/M/MV5BMjlmZmI5MDctNDE2YS00YWE0LWE5MDItNjRhYWYwYzE2YmRjXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg'),
+('The Social Network', 'https://www.imdb.com/title/tt1285016/', 'https://m.media-amazon.com/images/M/MV5BOGUyZDUxZjEtMmIzMC00MzlmLTg4MGItZWJmMzBhZjE0Mjc1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg'),
+('Mad Max: Fury Road', 'https://www.imdb.com/title/tt1392190/', 'https://m.media-amazon.com/images/M/MV5BN2EwM2I5OWMtMGQyMi00Zjg1LWJkNTctZTdjYTA4OGUwZjMyXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg'),
+('The Zone of Interest', 'https://www.imdb.com/title/tt7160372/', 'https://m.media-amazon.com/images/M/MV5BOTBjZGQ5YjItY2QyYi00Y2IzLWI0ZGItYjQ5ZTJlMzFmYzI0XkEyXkFqcGdeQXVyMTUzNTgzNzM0._V1_FMjpg_UX1000_.jpg'),
+('Children of Men', 'https://www.imdb.com/title/tt0206634/', 'https://m.media-amazon.com/images/M/MV5BZjUzY2ZhZDQtZThlNS00ZjFkLWJmNWYtODFhMTZiODk0M2Q1XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg'),
+('Inglourious Basterds', 'https://www.imdb.com/title/tt0361748/', 'https://m.media-amazon.com/images/M/MV5BOTJiNDEzOWYtMTVjOC00ZjlmLWE0NGMtZmE1OWVmZDQ2OWJhXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_FMjpg_UX1000_.jpg'),
+('City of God', 'https://www.imdb.com/title/tt0317248/', 'https://m.media-amazon.com/images/M/MV5BOTMwYjc5ZmItYTFjZC00ZGQ3LTlkNTMtMjZiNTZlMWQzNzI5XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg'),
+('Crouching Tiger, Hidden Dragon', 'https://www.imdb.com/title/tt0190332/', 'https://m.media-amazon.com/images/M/MV5BNDdhMzMxOTctNDMyNS00NTZmLTljNWEtNTc4MDBmZTYxY2NmXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg'),
+('Brokeback Mountain', 'https://www.imdb.com/title/tt0388795/', 'https://m.media-amazon.com/images/M/MV5BMTY5NTAzNTc1NF5BMl5BanBnXkFtZTYwNDY4NjY3._V1_FMjpg_UX1000_.jpg'),
+('Y Tu Mamá También', 'https://www.imdb.com/title/tt0245574/', 'https://m.media-amazon.com/images/M/MV5BOWFlNzE3OWItYjEzNi00OTQ0LWE1YzctZDYwNGMxNWNlMjIyXkEyXkFqcGdeQXVyMTAwMzUyOTc._V1_FMjpg_UX1000_.jpg'),
+('Zodiac', 'https://www.imdb.com/title/tt0443706/', 'https://m.media-amazon.com/images/M/MV5BN2U1NWE1NTMtYjQ2ZC00MTFmLWFmYjItODMyNGYxOTAyZmEzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_FMjpg_UX1000_.jpg'),
+('The Wolf of Wall Street', 'https://www.imdb.com/title/tt0993846/', 'https://m.media-amazon.com/images/M/MV5BMjIxMjgxNTk0MF5BMl5BanBnXkFtZTgwNjIyOTg2MDE@._V1_FMjpg_UX1000_.jpg'),
+('The Royal Tenenbaums', 'https://www.imdb.com/title/tt0265666/', 'https://m.media-amazon.com/images/M/MV5BMTI0MTg4NzI3M15BMl5BanBnXkFtZTcwOTE0MTUyMQ@@._V1_FMjpg_UX1000_.jpg'),
+('The Grand Budapest Hotel', 'https://www.imdb.com/title/tt2278388/', 'https://m.media-amazon.com/images/M/MV5BMzM5NjUxOTEyMl5BMl5BanBnXkFtZTgwNjEyMDM0MDE@._V1_FMjpg_UX1000_.jpg'),
+('Boyhood', 'https://www.imdb.com/title/tt1065073/', 'https://m.media-amazon.com/images/M/MV5BMTYzNDc2MDc0N15BMl5BanBnXkFtZTgwOTcwMDQ5MTE@._V1_FMjpg_UX1000_.jpg'),
+('Her', 'https://www.imdb.com/title/tt1798709/', 'https://m.media-amazon.com/images/M/MV5BMjA1Nzk0OTM2OF5BMl5BanBnXkFtZTgwNjU2NjEwMDE@._V1_FMjpg_UX1000_.jpg'),
+('Phantom Thread', 'https://www.imdb.com/title/tt5776858/', 'https://m.media-amazon.com/images/M/MV5BN2MyYzYxYWYtOGQ1MC00Yzg0LTgyYzUtZDA3ZWE0Yzc3MGQwXkEyXkFqcGdeQXVyMjM4NTM5NDY@._V1_FMjpg_UX1000_.jpg'),
+('Anatomy of a Fall', 'https://www.imdb.com/title/tt17009710/', 'https://m.media-amazon.com/images/M/MV5BOGNmZDI2NDktN2M1YS00MmU5LWIwMGYtOWE1YzBiZTI5OWQ2XkEyXkFqcGdeQXVyMTUzNTgzNzM0._V1_FMjpg_UX1000_.jpg'),
+('Adaptation', 'https://www.imdb.com/title/tt0268126/', 'https://m.media-amazon.com/images/M/MV5BMTk0OTY5Mzc2MV5BMl5BanBnXkFtZTYwMjA5NTg3._V1_FMjpg_UX1000_.jpg'),
+('The Dark Knight', 'https://www.imdb.com/title/tt0468569/', 'https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UX1000_.jpg'),
+('Arrival', 'https://www.imdb.com/title/tt2543164/', 'https://m.media-amazon.com/images/M/MV5BNGU0NTA2YjctYWNlYy00ZDg1LTg5ZTItZWM3MWZiMDI5OGYzXkEyXkFqcGdeQXVyNDM3ODU2NDM@._V1_FMjpg_UX1000_.jpg'),
+('Lost in Translation', 'https://www.imdb.com/title/tt0335266/', 'https://m.media-amazon.com/images/M/MV5BMTI2NDI5ODA4N15BMl5BanBnXkFtZTYwMTI3NTE3._V1_FMjpg_UX1000_.jpg'),
+('The Departed', 'https://www.imdb.com/title/tt0407887/', 'https://m.media-amazon.com/images/M/MV5BMTI1MTY2OTIxNV5BMl5BanBnXkFtZTYwNjQ4NjY3._V1_FMjpg_UX1000_.jpg'),
+('Bridesmaids', 'https://www.imdb.com/title/tt1478338/', 'https://m.media-amazon.com/images/M/MV5BMjAyOTMyMzUxNl5BMl5BanBnXkFtZTcwODI4MzE0NA@@._V1_FMjpg_UX1000_.jpg'),
+('A Separation', 'https://www.imdb.com/title/tt1832382/', 'https://m.media-amazon.com/images/M/MV5BN2JmMjViMjMtZTM5Mi00ZGZkLTk5YzctZDg5MjFjZDE4NjNkXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg'),
+('WALL-E', 'https://www.imdb.com/title/tt0910970/', 'https://m.media-amazon.com/images/M/MV5BMjExMTg5OTU0NF5BMl5BanBnXkFtZTcwMjMxMzMzMw@@._V1_FMjpg_UX1000_.jpg'),
+('A Prophet', 'https://www.imdb.com/title/tt1235166/', 'https://m.media-amazon.com/images/M/MV5BMTU4MjU1MDQxOV5BMl5BanBnXkFtZTcwNTM1NTc2Mg@@._V1_FMjpg_UX1000_.jpg'),
+('American Sniper', 'https://www.imdb.com/title/tt2179136/', 'https://m.media-amazon.com/images/M/MV5BMTkxNzI3ODI4Nl5BMl5BanBnXkFtZTgwMjkwMjY4MjE@._V1_FMjpg_UX1000_.jpg'),
+('Call Me by Your Name', 'https://www.imdb.com/title/tt5726616/', 'https://m.media-amazon.com/images/M/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@._V1_FMjpg_UX1000_.jpg'),
+('Portrait of a Lady on Fire', 'https://www.imdb.com/title/tt8613070/', 'https://m.media-amazon.com/images/M/MV5BNjgwNjkwOWYtYmM3My00NzI1LTk5OGItYWY0OTMyZTY4OTg2XkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_FMjpg_UX1000_.jpg'),
+('Lady Bird', 'https://www.imdb.com/title/tt4925292/', 'https://m.media-amazon.com/images/M/MV5BODhkZGE0NDQtZDc4Zi00MWQ5LWJiYjQtZmZjMWM2NjBmY2QyXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg'),
+('Yi Yi', 'https://www.imdb.com/title/tt0244316/', 'https://m.media-amazon.com/images/M/MV5BMTYzNDM0NDY2NV5BMl5BanBnXkFtZTgwMDMzNDg3NDE@._V1_FMjpg_UX1000_.jpg'),
+('Amélie', 'https://www.imdb.com/title/tt0211915/', 'https://m.media-amazon.com/images/M/MV5BNDg4NjM1YjMtYmNhZC00MjM0LWFiZmYtNGY1YjA3MzZmODc5XkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_FMjpg_UX1000_.jpg'),
+('The Master', 'https://www.imdb.com/title/tt1560747/', 'https://m.media-amazon.com/images/M/MV5BMTQ2NjQ5MzMwMF5BMl5BanBnXkFtZTcwMjAyNTE3OA@@._V1_FMjpg_UX1000_.jpg'),
+('Oldboy', 'https://www.imdb.com/title/tt0364569/', 'https://m.media-amazon.com/images/M/MV5BMTI3NTQyMzU5M15BMl5BanBnXkFtZTcwMTM2MjgyMQ@@._V1_FMjpg_UX1000_.jpg'),
+('Once Upon a Time in Hollywood', 'https://www.imdb.com/title/tt7131622/', 'https://m.media-amazon.com/images/M/MV5BOTg4ZTNkZmUtMzNlZi00YmFjLTk1MmUtNWQwNTM0YjcyNTNkXkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_FMjpg_UX1000_.jpg'),
+('Moneyball', 'https://www.imdb.com/title/tt1210166/', 'https://m.media-amazon.com/images/M/MV5BMjAxOTU3Mzc1M15BMl5BanBnXkFtZTcwMzk1ODUzNg@@._V1_FMjpg_UX1000_.jpg'),
+('Roma', 'https://www.imdb.com/title/tt6155172/', 'https://m.media-amazon.com/images/M/MV5BMTU0OTc3ODk4Ml5BMl5BanBnXkFtZTgwMzM4NzI5NjM@._V1_FMjpg_UX1000_.jpg'),
+('Almost Famous', 'https://www.imdb.com/title/tt0181875/', 'https://m.media-amazon.com/images/M/MV5BMzY1ZjMwMGEtYTY1ZS00ZDllLTk0ZmUtYzA3ZTA4NmYwNGNkXkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_FMjpg_UX1000_.jpg'),
+('The Lives of Others', 'https://www.imdb.com/title/tt0405094/', 'https://m.media-amazon.com/images/M/MV5BNmQyNmJjM2ItNTQzYi00ZjMxLWFjMDYtZjUyN2YwZDk5YWQ2XkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_FMjpg_UX1000_.jpg'),
+('Before Sunset', 'https://www.imdb.com/title/tt0381681/', 'https://m.media-amazon.com/images/M/MV5BMTQ1MjAwNTM5Ml5BMl5BanBnXkFtZTYwNDM0MTc3._V1_FMjpg_UX1000_.jpg'),
+('Up', 'https://www.imdb.com/title/tt1049413/', 'https://m.media-amazon.com/images/M/MV5BMTk3NDE2NzI4NF5BMl5BanBnXkFtZTgwNzE1MzEyMTE@._V1_FMjpg_UX1000_.jpg'),
+('12 Years a Slave', 'https://www.imdb.com/title/tt2024544/', 'https://m.media-amazon.com/images/M/MV5BMjExMTEzODkyN15BMl5BanBnXkFtZTcwNTU4NTc4OQ@@._V1_FMjpg_UX1000_.jpg'),
+('The Favourite', 'https://www.imdb.com/title/tt5083738/', 'https://m.media-amazon.com/images/M/MV5BMTg1NzQwMDQxNV5BMl5BanBnXkFtZTgwNDg2NDYyNjM@._V1_FMjpg_UX1000_.jpg'),
+('Borat', 'https://www.imdb.com/title/tt0443453/', 'https://m.media-amazon.com/images/M/MV5BMTk0MTQ3NDQ4Ml5BMl5BanBnXkFtZTcwOTQ3OTQzMw@@._V1_FMjpg_UX1000_.jpg'),
+('Pan’s Labyrinth', 'https://www.imdb.com/title/tt0457430/', 'https://m.media-amazon.com/images/M/MV5BMTU3ODg2NjQ5NF5BMl5BanBnXkFtZTcwMDEwODgzMQ@@._V1_FMjpg_UX1000_.jpg'),
+('Inception', 'https://www.imdb.com/title/tt1375666/', 'https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_FMjpg_UX1000_.jpg'),
+('Punch-Drunk Love', 'https://www.imdb.com/title/tt0272338/', 'https://m.media-amazon.com/images/M/MV5BMDNkYjhiMzgtOTQ5Ni00NTQzLWFmMjYtYjFjZTYxNmFhZGU5XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_FMjpg_UX1000_.jpg'),
+('Best in Show', 'https://www.imdb.com/title/tt0218839/', 'https://m.media-amazon.com/images/M/MV5BNGJiNWFlYTMtZTQwNS00MjhiLTg5ODItYzVjZjkwZGRhZGU5XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_FMjpg_UX1000_.jpg'),
+('Uncut Gems', 'https://www.imdb.com/title/tt5727208/', 'https://m.media-amazon.com/images/M/MV5BODhkNDJmOTctM2Q2Yy00YWI3LTk0ZTUtNjY0ODg1MjRiMjdlXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg'),
+('Toni Erdmann', 'https://www.imdb.com/title/tt4048272/', 'https://m.media-amazon.com/images/M/MV5BMTQxNDE1NjQzNl5BMl5BanBnXkFtZTgwNjQ0NDk1MDI@._V1_FMjpg_UX1000_.jpg'),
+('Whiplash', 'https://www.imdb.com/title/tt2582802/', 'https://m.media-amazon.com/images/M/MV5BOTA5NDZlZGUtMjAxOS00YTRkLTkwYmMtYWQ0NWEwZDZiNjEzXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg'),
+('Kill Bill Vol.1', 'https://www.imdb.com/title/tt0266697/', 'https://m.media-amazon.com/images/M/MV5BNzM3NDFhYTAtYmU5Mi00NGRmLTljYjgtMDkyODQ4MjNkMGY2XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg'),
+('Memento', 'https://www.imdb.com/title/tt0209144/', 'https://m.media-amazon.com/images/M/MV5BZTcyNjk1MjgtOWI3Mi00YzQwLWI5MTktMzY4ZmI2NDAyNzYzXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg'),
+('Little Miss Sunshine', 'https://www.imdb.com/title/tt0449059/', 'https://m.media-amazon.com/images/M/MV5BMTgzNTgzODU0NV5BMl5BanBnXkFtZTcwMjEyMjMzMQ@@._V1_FMjpg_UX1000_.jpg'),
+('Gone Girl', 'https://www.imdb.com/title/tt2267998/', 'https://m.media-amazon.com/images/M/MV5BMTk0MDQ3MzAzOV5BMl5BanBnXkFtZTgwNzU1NzE3MjE@._V1_FMjpg_UX1000_.jpg'),
+('Oppenheimer', 'https://www.imdb.com/title/tt15398776/', 'https://m.media-amazon.com/images/M/MV5BMDBmYTZjNjUtN2M1MS00MTQ2LTk2ODgtNzc2M2QyZGE5NTVjXkEyXkFqcGdeQXVyNzAwMjU2MTY@._V1_FMjpg_UX1000_.jpg'),
+('Spotlight', 'https://www.imdb.com/title/tt1895587/', 'https://m.media-amazon.com/images/M/MV5BMjIyOTM5OTIzNV5BMl5BanBnXkFtZTgwMDkzODE2NjE@._V1_FMjpg_UX1000_.jpg'),
+('Tár', 'https://www.imdb.com/title/tt14444726/', 'https://m.media-amazon.com/images/M/MV5BM2I0ZDcyYzItMGEyNi00YWVhLTlmYTMtYzViOWRkNDBhYjVjXkEyXkFqcGdeQXVyMTUzNTgzNzM0._V1_FMjpg_UX1000_.jpg'),
+('The Hurt Locker', 'https://www.imdb.com/title/tt0887912/', 'https://m.media-amazon.com/images/M/MV5BMjE1NzI0NzU5Ml5BMl5BanBnXkFtZTcwNzU4NDA5Mg@@._V1_FMjpg_UX1000_.jpg'),
+('Under the Skin', 'https://www.imdb.com/title/tt1441395/', 'https://m.media-amazon.com/images/M/MV5BMjA0OTY1NjA0N15BMl5BanBnXkFtZTgwMjQ5NzQxMDE@._V1_FMjpg_UX1000_.jpg'),
+('Let the Right One In', 'https://www.imdb.com/title/tt1139797/', 'https://m.media-amazon.com/images/M/MV5BMTM2NjQ5NzYxNl5BMl5BanBnXkFtZTcwMjk5NzcxMw@@._V1_FMjpg_UX1000_.jpg'),
+('Ocean’s Eleven', 'https://www.imdb.com/title/tt0240772/', 'https://m.media-amazon.com/images/M/MV5BYzVmYzVkMmUtOGRhMi00MTNmLThlMmUtZTljYjlkMjNkMjJkXkEyXkFqcGdeQXVyNDk3NzU2MTQ@._V1_FMjpg_UX1000_.jpg'),
+('Carol', 'https://www.imdb.com/title/tt2402927/', 'https://m.media-amazon.com/images/M/MV5BMzAwNDU5NjI1OV5BMl5BanBnXkFtZTgwMjQ1MTU5NzE@._V1_FMjpg_UX1000_.jpg'),
+('Ratatouille', 'https://www.imdb.com/title/tt0382932/', 'https://m.media-amazon.com/images/M/MV5BMTMzODU0NTkxMF5BMl5BanBnXkFtZTcwMjQ4MzMzMw@@._V1_FMjpg_UX1000_.jpg'),
+('The Florida Project', 'https://www.imdb.com/title/tt5649144/', 'https://m.media-amazon.com/images/M/MV5BMjg4ZmY1MmItMjFjOS00ZTg2LWJjNDYtNDM2YmM2NzhiNmZhXkEyXkFqcGdeQXVyNTAzMTY4MDA@._V1_FMjpg_UX1000_.jpg'),
+('Amour', 'https://www.imdb.com/title/tt1602620/', 'https://m.media-amazon.com/images/M/MV5BMTU1NDg4Mzc0N15BMl5BanBnXkFtZTcwNzg0OTgxOA@@._V1_FMjpg_UX1000_.jpg'),
+('O Brother, Where Art Thou?', 'https://www.imdb.com/title/tt0190590/', 'https://m.media-amazon.com/images/M/MV5BMjA5NjM3MjQzNl5BMl5BanBnXkFtZTgwMzk1MzY2NjE@._V1_FMjpg_UX1000_.jpg'),
+('Everything Everywhere All at Once', 'https://www.imdb.com/title/tt6710474/', 'https://m.media-amazon.com/images/M/MV5BYTdiOTIyZTQtNmQ1OS00NjZlLWIyMTgtYzk5Y2M3ZDVmMDk1XkEyXkFqcGdeQXVyMTAzMDg4NzU0._V1_FMjpg_UX1000_.jpg'),
+('After Sun', 'https://www.imdb.com/title/tt19770238/', 'https://m.media-amazon.com/images/M/MV5BMTJmYzY2ODktN2M3YS00Y2QzLWJkNWEtZTNmMmUxODUyZTYyXkEyXkFqcGdeQXVyMTAyMjQ3NzQ1._V1_FMjpg_UX1000_.jpg'),
+('The Tree of Life', 'https://www.imdb.com/title/tt0478304/', 'https://m.media-amazon.com/images/M/MV5BMjJhMjhlZGIxNzAtNTA0YS00NzFjLWEyZGEtNGY1MmE3ZDQ3OTQyXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg'),
+('Volver', 'https://www.imdb.com/title/tt0441909/', 'https://m.media-amazon.com/images/M/MV5BMjA0NTYxMjY1OV5BMl5BanBnXkFtZTcwNjI2OTMzMQ@@._V1_FMjpg_UX1000_.jpg'),
+('Black Swan', 'https://www.imdb.com/title/tt0947798/', 'https://m.media-amazon.com/images/M/MV5BNzY2NzI4OTE5MF5BMl5BanBnXkFtZTcwMjMyNDY4Mw@@._V1_FMjpg_UX1000_.jpg'),
+('The Act of Killing', 'https://www.imdb.com/title/tt2375605/', 'https://m.media-amazon.com/images/M/MV5BNmY0OWE2NDctZDVmMi00MjA3LTk5YzQtZjY5NGRhZDU0MTAyXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg'),
+('Inside Llewyn Davis', 'https://www.imdb.com/title/tt2042568/', 'https://m.media-amazon.com/images/M/MV5BMTU4NDYyNzA3NF5BMl5BanBnXkFtZTgwMDAzNzQ1MDE@._V1_FMjpg_UX1000_.jpg'),
+('Melancholia', 'https://www.imdb.com/title/tt1527186/', 'https://m.media-amazon.com/images/M/MV5BMTk4NjY0Mzg0MF5BMl5BanBnXkFtZTcwNjI2OTMzMQ@@._V1_FMjpg_UX1000_.jpg'),
+('Anchorman', 'https://www.imdb.com/title/tt0357413/', 'https://m.media-amazon.com/images/M/MV5BMTQ2MzYwMzk5Ml5BMl5BanBnXkFtZTcwOTI4NzUyMw@@._V1_FMjpg_UX1000_.jpg'),
+('Past Lives', 'https://www.imdb.com/title/tt13238346/', 'https://m.media-amazon.com/images/M/MV5BOTg3YzVkMzgtYzYyYy00Mjk4LTg1ZjgtYmJkZDM0Y2QwOGVmXkEyXkFqcGdeQXVyMTAyMjQ3NzQ1._V1_FMjpg_UX1000_.jpg'),
+('The Lord of the Rings: The Fellowship of the Ring', 'https://www.imdb.com/title/tt0120737/', 'https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_FMjpg_UX1000_.jpg'),
+('The Cleaners', 'https://www.imdb.com/title/tt7909444/', 'https://m.media-amazon.com/images/M/MV5BZGMxYjYyMDAtY2E4ZS00YjQ5LWE0YjYtYTk0YjA0OTVlYjY1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg'),
+('Interstellar', 'https://www.imdb.com/title/tt0816692/', 'https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg'),
+('Frances Ha', 'https://www.imdb.com/title/tt2347569/', 'https://m.media-amazon.com/images/M/MV5BMTU5NTgxMjItYzFhZi00Y2U1LTlhMjItZWQzZDM0YjZhN2Y4XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg'),
+('Fish Tank', 'https://www.imdb.com/title/tt1232776/', 'https://m.media-amazon.com/images/M/MV5BMTc1MDY5MDA1MV5BMl5BanBnXkFtZTcwNjA2NTU1Mg@@._V1_FMjpg_UX1000_.jpg'),
+('Gladiator', 'https://www.imdb.com/title/tt0172495/', 'https://m.media-amazon.com/images/M/MV5BMDliMmNhNDEtODUyOS00MjNlLTgxODEtN2U3NzIxMGVkZTA1L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg'),
+('Michael Clayton', 'https://www.imdb.com/title/tt0465538/', 'https://m.media-amazon.com/images/M/MV5BMTc0NTU5MjI3OF5BMl5BanBnXkFtZTcwMTEyMTEyMQ@@._V1_FMjpg_UX1000_.jpg'),
+('Minority Report', 'https://www.imdb.com/title/tt0181689/', 'https://m.media-amazon.com/images/M/MV5BZTI3YzZjZjEtMDdjOC00OWVjLTk0YmYtYzI2MGMwZjFiMzBlXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_FMjpg_UX1000_.jpg'),
+('The Worst Person in the World', 'https://www.imdb.com/title/tt10370710/', 'https://m.media-amazon.com/images/M/MV5BNDBjZGJmN2QtYjA5Ny00OTU0LWJjOGItNWY0YjU4YTE1MDQ0XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg'),
+('Black Panther', 'https://www.imdb.com/title/tt1825683/', 'https://m.media-amazon.com/images/M/MV5BMTg1MTY2MjYzNV5BMl5BanBnXkFtZTgwMTc4NTMwNDI@._V1_FMjpg_UX1000_.jpg'),
+('Gravity', 'https://www.imdb.com/title/tt1454468/', 'https://m.media-amazon.com/images/M/MV5BNjE5MzYwMzYxMF5BMl5BanBnXkFtZTcwOTk4MTk0OQ@@._V1_FMjpg_UX1000_.jpg'),
+('Grizzly Man', 'https://www.imdb.com/title/tt0427312/', 'https://m.media-amazon.com/images/M/MV5BMTI5NjkyNDQ3NV5BMl5BanBnXkFtZTcwNjY1NTQzMQ@@._V1_FMjpg_UX1000_.jpg'),
+('Memories of Murder', 'https://www.imdb.com/title/tt0353969/', 'https://m.media-amazon.com/images/M/MV5BOGViNTg4YTktYTQ2Ni00MTU0LTk2NWUtMTI4OTc1YTM0NzQ2XkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg'),
+('Superbad', 'https://www.imdb.com/title/tt0829482/', 'https://m.media-amazon.com/images/M/MV5BMTc0NjIyMjA2OF5BMl5BanBnXkFtZTcwMzIxNDE1MQ@@._V1_FMjpg_UX1000_.jpg');
+```
+
+---
+
+### **How to Use This**:
+1. **Save as `.sql`**: Copy this script into a file named `movies_db.sql`.
+2. **Import into SQLite**:
+   ```bash
+   sqlite3 movies.db < movies_db.sql
+   ```
+3. **Website Integration**: Use the generated `movies.db` file with your backend (e.g., Python/SQLite, PHP/PDO, Node.js).
+
+---
+
+### **Features**:
+- **Schema**: Simple table with `id`, `title`, `imdb_url`, and `poster_url`.
+- **Poster URLs**: High-resolution images (1000px width) from IMDb.
+- **Normalized Data**: Titles match your original list exactly.
+
+Let me know if you'd prefer a pre-made `.db` file or adjustments!

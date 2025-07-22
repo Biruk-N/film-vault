@@ -6,6 +6,7 @@ import {
   createRootRoute,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import * as React from 'react'
 import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary'
 import { NotFound } from '~/components/NotFound'
@@ -62,68 +63,74 @@ export const Route = createRootRoute({
   shellComponent: RootDocument,
 })
 
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      retry: 1,
+    },
+  },
+})
+
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <head>
         <HeadContent />
       </head>
-      <body>
-        <div className="p-2 flex gap-2 text-lg">
-          <Link
-            to="/"
-            activeProps={{
-              className: 'font-bold',
-            }}
-            activeOptions={{ exact: true }}
-          >
-            Home
-          </Link>{' '}
-          <Link
-            to="/posts"
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            Posts
-          </Link>{' '}
-          <Link
-            to="/users"
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            Users
-          </Link>{' '}
-          <Link
-            to="/route-a"
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            Pathless Layout
-          </Link>{' '}
-          <Link
-            to="/deferred"
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            Deferred
-          </Link>{' '}
-          <Link
-            // @ts-expect-error
-            to="/this-route-does-not-exist"
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            This Route Does Not Exist
-          </Link>
-        </div>
-        <hr />
-        {children}
-        <TanStackRouterDevtools position="bottom-right" />
+      <body className="bg-gray-900 text-white min-h-screen">
+        <QueryClientProvider client={queryClient}>
+          <nav className="bg-gray-800 border-b border-gray-700">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between h-16">
+                <div className="flex items-center">
+                  <Link
+                    to="/"
+                    className="flex items-center space-x-2 text-xl font-bold text-white hover:text-blue-400 transition-colors"
+                  >
+                    <span className="text-2xl">🎬</span>
+                    <span>FilmVault</span>
+                  </Link>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <Link
+                    to="/"
+                    activeProps={{
+                      className: 'text-blue-400 font-semibold',
+                    }}
+                    activeOptions={{ exact: true }}
+                    className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    to="/movies"
+                    activeProps={{
+                      className: 'text-blue-400 font-semibold',
+                    }}
+                    className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  >
+                    Movies
+                  </Link>
+                  <Link
+                    to="/search"
+                    activeProps={{
+                      className: 'text-blue-400 font-semibold',
+                    }}
+                    className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  >
+                    Search
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </nav>
+          <main className="flex-1">
+            {children}
+          </main>
+          <TanStackRouterDevtools position="bottom-right" />
+        </QueryClientProvider>
         <Scripts />
       </body>
     </html>
