@@ -23,6 +23,7 @@ import { Route as UsersIndexRouteImport } from './routes/users.index'
 import { Route as PostsIndexRouteImport } from './routes/posts.index'
 import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
+import { Route as MovieMovieIdRouteImport } from './routes/movie.$movieId'
 import { Route as PathlessLayoutNestedLayoutRouteImport } from './routes/_pathlessLayout/_nested-layout'
 import { Route as PostsPostIdDeepRouteImport } from './routes/posts_.$postId.deep'
 import { Route as PathlessLayoutNestedLayoutRouteBRouteImport } from './routes/_pathlessLayout/_nested-layout/route-b'
@@ -92,6 +93,11 @@ const PostsPostIdRoute = PostsPostIdRouteImport.update({
   path: '/$postId',
   getParentRoute: () => PostsRoute,
 } as any)
+const MovieMovieIdRoute = MovieMovieIdRouteImport.update({
+  id: '/movie/$movieId',
+  path: '/movie/$movieId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PathlessLayoutNestedLayoutRoute =
   PathlessLayoutNestedLayoutRouteImport.update({
     id: '/_nested-layout',
@@ -138,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/redirect': typeof RedirectRoute
   '/search': typeof SearchRoute
   '/users': typeof UsersRouteWithChildren
+  '/movie/$movieId': typeof MovieMovieIdRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts/': typeof PostsIndexRoute
@@ -152,6 +159,7 @@ export interface FileRoutesByTo {
   '/movies': typeof MoviesRoute
   '/redirect': typeof RedirectRoute
   '/search': typeof SearchRoute
+  '/movie/$movieId': typeof MovieMovieIdRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts': typeof PostsIndexRoute
@@ -171,6 +179,7 @@ export interface FileRoutesById {
   '/search': typeof SearchRoute
   '/users': typeof UsersRouteWithChildren
   '/_pathlessLayout/_nested-layout': typeof PathlessLayoutNestedLayoutRouteWithChildren
+  '/movie/$movieId': typeof MovieMovieIdRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts/': typeof PostsIndexRoute
@@ -189,6 +198,7 @@ export interface FileRouteTypes {
     | '/redirect'
     | '/search'
     | '/users'
+    | '/movie/$movieId'
     | '/posts/$postId'
     | '/users/$userId'
     | '/posts/'
@@ -203,6 +213,7 @@ export interface FileRouteTypes {
     | '/movies'
     | '/redirect'
     | '/search'
+    | '/movie/$movieId'
     | '/posts/$postId'
     | '/users/$userId'
     | '/posts'
@@ -221,6 +232,7 @@ export interface FileRouteTypes {
     | '/search'
     | '/users'
     | '/_pathlessLayout/_nested-layout'
+    | '/movie/$movieId'
     | '/posts/$postId'
     | '/users/$userId'
     | '/posts/'
@@ -239,6 +251,7 @@ export interface RootRouteChildren {
   RedirectRoute: typeof RedirectRoute
   SearchRoute: typeof SearchRoute
   UsersRoute: typeof UsersRouteWithChildren
+  MovieMovieIdRoute: typeof MovieMovieIdRoute
   PostsPostIdDeepRoute: typeof PostsPostIdDeepRoute
 }
 export interface FileServerRoutesByFullPath {
@@ -355,6 +368,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/posts/$postId'
       preLoaderRoute: typeof PostsPostIdRouteImport
       parentRoute: typeof PostsRoute
+    }
+    '/movie/$movieId': {
+      id: '/movie/$movieId'
+      path: '/movie/$movieId'
+      fullPath: '/movie/$movieId'
+      preLoaderRoute: typeof MovieMovieIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_pathlessLayout/_nested-layout': {
       id: '/_pathlessLayout/_nested-layout'
@@ -487,6 +507,7 @@ const rootRouteChildren: RootRouteChildren = {
   RedirectRoute: RedirectRoute,
   SearchRoute: SearchRoute,
   UsersRoute: UsersRouteWithChildren,
+  MovieMovieIdRoute: MovieMovieIdRoute,
   PostsPostIdDeepRoute: PostsPostIdDeepRoute,
 }
 export const routeTree = rootRouteImport
