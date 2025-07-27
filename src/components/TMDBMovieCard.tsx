@@ -1,7 +1,9 @@
 import { ExternalLink, Star, Calendar, Users } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 import type { TMDBMovie } from '~/lib/secure-tmdb-api'
-import { getPosterUrl } from '~/lib/secure-tmdb-api'
+import { getPosterUrl, getProfileUrl } from '~/lib/secure-tmdb-api'
+import { GenreBadges } from './GenreBadges'
+import { extractGenreIds } from '~/lib/genres'
 
 interface TMDBMovieCardProps {
   movie: TMDBMovie
@@ -12,6 +14,9 @@ export function TMDBMovieCard({ movie, rank }: TMDBMovieCardProps) {
   const posterUrl = getPosterUrl(movie.poster_path, 'w500')
   const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'N/A'
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'
+  
+  // Check if this is an upcoming movie (release date is in the future)
+  const isUpcoming = movie.release_date ? new Date(movie.release_date) > new Date() : false
 
   return (
     <div className="group relative bg-gray-800 rounded-lg overflow-hidden hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-xl">
@@ -34,11 +39,21 @@ export function TMDBMovieCard({ movie, rank }: TMDBMovieCardProps) {
           </div>
         )}
 
-        {/* Rating Badge */}
-        <div className="absolute top-2 left-2 bg-yellow-500 text-black text-sm font-bold px-2 py-1 rounded-full flex items-center gap-1">
-          <Star size={12} fill="currentColor" />
-          {rating}
-        </div>
+        {/* Rating Badge - Only show for released movies */}
+        {!isUpcoming && (
+          <div className="absolute top-2 left-2 bg-yellow-500 text-black text-sm font-bold px-2 py-1 rounded-full flex items-center gap-1">
+            <Star size={12} fill="currentColor" />
+            {rating}
+          </div>
+        )}
+        
+        {/* Upcoming Badge - Show for upcoming movies */}
+        {isUpcoming && (
+          <div className="absolute top-2 left-2 bg-green-500 text-white text-sm font-bold px-2 py-1 rounded-full flex items-center gap-1">
+            <Calendar size={12} />
+            Coming Soon
+          </div>
+        )}
       </div>
       
       <div className="p-4">
@@ -55,13 +70,28 @@ export function TMDBMovieCard({ movie, rank }: TMDBMovieCardProps) {
             {releaseYear}
           </div>
           
-          {movie.vote_count && (
+          {movie.vote_count && !isUpcoming && (
             <div className="flex items-center text-gray-400 text-sm">
               <Users size={14} className="mr-1" />
               {movie.vote_count.toLocaleString()} votes
             </div>
           )}
         </div>
+
+        {/* Genres */}
+        {(() => {
+          const genreIds = extractGenreIds(movie)
+          return genreIds.length > 0 ? (
+            <div className="mb-3">
+              <GenreBadges 
+                genreIds={genreIds} 
+                maxDisplay={3} 
+                showIcon={false} 
+                expandable={true} 
+              />
+            </div>
+          ) : null
+        })()}
 
         {/* Overview */}
         {movie.overview && (

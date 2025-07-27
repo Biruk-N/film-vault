@@ -158,6 +158,21 @@ export async function getNowPlayingMovies(page: number = 1): Promise<MovieSearch
   }
 }
 
+export async function getUpcomingMovies(page: number = 1): Promise<MovieSearchResult> {
+  try {
+    const response = await fetch(
+      `${TMDB_BASE_URL}/movie/upcoming?api_key=${TMDB_API_KEY}&language=en-US&page=${page}`
+    )
+    if (!response.ok) {
+      throw new Error(`TMDB API error: ${response.status}`)
+    }
+    
+    return await response.json()
+  } catch (error) {
+    console.error('Error fetching upcoming movies:', error)
+    return { page: 1, results: [], total_pages: 0, total_results: 0 }
+  }
+}
 // Get movie details by TMDB ID
 export async function getMovieDetails(tmdbId: number): Promise<TMDBMovie | null> {
   try {

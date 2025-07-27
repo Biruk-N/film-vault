@@ -1,10 +1,14 @@
 import React from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import { useMovieDetails } from '~/hooks/useTMDB'
+import { useMovieDetails, useMovieCredits } from '~/hooks/useTMDB'
 import { seo, seoPresets, generateMovieStructuredData } from '~/utils/seo'
-import { Star, Calendar, Users, ArrowLeft, ExternalLink } from 'lucide-react'
+import { Star, Calendar, Users, ArrowLeft, ExternalLink, Tag } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
 import { getPosterUrl, getBackdropUrl } from '~/lib/secure-tmdb-api'
+import { CastSection } from '~/components/CastSection'
+import { CrewSection } from '~/components/CrewSection'
+import { GenreBadges } from '~/components/GenreBadges'
+import { extractGenreIds } from '~/lib/genres'
 
 export const Route = createFileRoute('/movie/$movieId')({
   component: MovieDetailsPage,
@@ -26,6 +30,7 @@ export const Route = createFileRoute('/movie/$movieId')({
 function MovieDetailsPage() {
   const { movieId } = Route.useLoaderData()
   const { data: movie, isLoading, error } = useMovieDetails(movieId)
+  const { data: credits, isLoading: creditsLoading } = useMovieCredits(movieId)
 
   // Update SEO when movie data is available
   React.useEffect(() => {
@@ -92,6 +97,17 @@ function MovieDetailsPage() {
   const rating = movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A'
   const posterUrl = getPosterUrl(movie.poster_path, 'w500')
   const backdropUrl = getBackdropUrl(movie.backdrop_path || '', 'w1280')
+  
+  // Check if this is an upcoming movie (release date is in the future)
+  const isUpcoming = movie.release_date ? new Date(movie.release_date) > new Date() : false
+  
+  // Debug: Log movie data to see what we're getting
+  console.log('Movie data:', {
+    id: movie.id,
+    title: movie.title,
+    genre_ids: movie.genre_ids,
+    genres: movie.genres
+  })
 
   return (
     <div className="min-h-screen bg-gray-900">
@@ -128,13 +144,25 @@ function MovieDetailsPage() {
                 }}
               />
               
-              {/* Rating Badge */}
-              <div className="mt-4 flex items-center justify-center">
-                <div className="bg-yellow-500 text-black px-4 py-2 rounded-lg font-bold flex items-center">
-                  <Star className="mr-2" size={20} fill="currentColor" />
-                  {rating}/10
+              {/* Rating Badge - Only show for released movies */}
+              {!isUpcoming && (
+                <div className="mt-4 flex items-center justify-center">
+                  <div className="bg-yellow-500 text-black px-4 py-2 rounded-lg font-bold flex items-center">
+                    <Star className="mr-2" size={20} fill="currentColor" />
+                    {rating}/10
+                  </div>
                 </div>
-              </div>
+              )}
+              
+              {/* Upcoming Badge - Show for upcoming movies */}
+              {isUpcoming && (
+                <div className="mt-4 flex items-center justify-center">
+                  <div className="bg-green-500 text-white px-4 py-2 rounded-lg font-bold flex items-center">
+                    <Calendar className="mr-2" size={20} />
+                    Coming Soon
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -151,15 +179,35 @@ function MovieDetailsPage() {
                   <Calendar className="mr-2" size={16} />
                   {releaseYear}
                 </div>
-                <div className="flex items-center text-gray-400">
-                  <Star className="mr-2" size={16} />
-                  {rating} ({movie.vote_count?.toLocaleString()} votes)
-                </div>
+                {!isUpcoming && (
+                  <div className="flex items-center text-gray-400">
+                    <Star className="mr-2" size={16} />
+                    {rating} ({movie.vote_count?.toLocaleString()} votes)
+                  </div>
+                )}
                 <div className="flex items-center text-gray-400">
                   <Users className="mr-2" size={16} />
                   {movie.popularity?.toFixed(0)} popularity
                 </div>
               </div>
+
+              {/* Genres */}
+              {(() => {
+                const genreIds = extractGenreIds(movie)
+                return genreIds.length > 0 ? (
+                  <div className="mb-6">
+                    {/* <h2 className="text-xl font-semibold text-white mb-3 flex items-center">
+                      <Tag className="mr-2" size={20} />
+                      Genres
+                    </h2> */}
+                    <GenreBadges 
+                      genreIds={genreIds} 
+                      maxDisplay={6} 
+                      expandable={true} 
+                    />
+                  </div>
+                ) : null
+              })()}
 
               {/* Overview */}
               {movie.overview && (
@@ -191,6 +239,16 @@ function MovieDetailsPage() {
             </div>
           </div>
         </div>
+        
+        {/* Cast Section */}
+        {credits && credits.cast && credits.cast.length > 0 && (
+          <CastSection cast={credits.cast} maxDisplay={12} />
+        )}
+        
+        {/* Crew Section */}
+        {credits && credits.crew && credits.crew.length > 0 && (
+          <CrewSection crew={credits.crew} />
+        )}
       </div>
     </div>
   )
