@@ -78,7 +78,7 @@ export const seoPresets = {
   search: {
     title: 'Search Movies: Find Your Favorite Films | FilmVault',
     description: 'Search through thousands of movies in our comprehensive database. Find films by title, discover new releases, and explore movie details with ratings and reviews.',
-    keywords: 'search movies, find movies, movie search, film search, movie database search, discover movies',
+    keywords: 'search movies, find movies, movie search, film search, actor search, director search, crew search, movie database search, discover movies',
     url: '/search'
   },
   

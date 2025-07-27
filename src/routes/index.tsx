@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { useState } from 'react'
-import { Film, Search, Star, TrendingUp, Zap, ChevronLeft, ChevronRight } from 'lucide-react'
-import { useTrendingMovies, usePopularMovies } from '~/hooks/useTMDB'
+import { Film, Search, Star, TrendingUp, Zap, ChevronLeft, ChevronRight, Calendar } from 'lucide-react'
+import { useTrendingMovies, usePopularMovies, useUpcomingMovies } from '~/hooks/useTMDB'
 import { MoviesGrid } from '~/components/MoviesGrid'
 
 export const Route = createFileRoute('/')({
@@ -11,12 +11,15 @@ export const Route = createFileRoute('/')({
 function Home() {
   const [trendingPage, setTrendingPage] = useState(1)
   const [popularPage, setPopularPage] = useState(1)
-  
+  const [upcomingPage, setUpcomingPage] = useState(1)
+
   const { data: trendingData, isLoading: trendingLoading } = useTrendingMovies('day', trendingPage)
   const { data: popularData, isLoading: popularLoading } = usePopularMovies(popularPage)
+  const { data: upcomingData, isLoading: upcomingLoading } = useUpcomingMovies(upcomingPage)
 
   const trendingMovies = trendingData?.results || []
   const popularMovies = popularData?.results || []
+  const upcomingMovies = upcomingData?.results || []
 
   const handleTrendingPageChange = (newPage: number) => {
     setTrendingPage(newPage)
@@ -27,6 +30,11 @@ function Home() {
     setPopularPage(newPage)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
+  const handleUpcomingPageChange = (newPage: number) => {
+    setUpcomingPage(newPage)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
 
   return (
     <div className="min-h-screen bg-gray-900">
@@ -38,8 +46,10 @@ function Home() {
             FilmVault
           </h1>
           <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-            Discover the latest trending and most popular movies from around the world. 
-            Stay updated with what's hot in cinema right now.
+            Discover the latest trending, most popular, and upcoming movies from around the world. 
+            Stay updated with what's hot in cinema right now and what's coming soon. 
+            Get detailed information including cast, crew, ratings, and genres. 
+            Search by movie titles, actor names, directors, and more.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -153,6 +163,55 @@ function Home() {
           )}
         </div>
 
+        {/* Upcoming Movies Section */}
+
+        <div className="mb-16">
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center">
+              <Calendar className="text-green-400 mr-3" size={24} />
+              <h2 className="text-3xl font-bold text-white">Upcoming Movies</h2>
+            </div>
+            
+            {/* Upcoming Pagination */}
+            {upcomingData && upcomingData.total_pages > 1 && (
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => handleUpcomingPageChange(upcomingPage - 1)}
+                  disabled={upcomingPage === 1}
+                  className="flex items-center px-3 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <span className="text-gray-400 text-sm">
+                  {upcomingPage} / {upcomingData.total_pages}
+                </span>
+                <button
+                  onClick={() => handleUpcomingPageChange(upcomingPage + 1)}
+                  disabled={upcomingPage === upcomingData.total_pages}
+                  className="flex items-center px-3 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            )}
+          </div>
+          
+          {upcomingLoading ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+              {[...Array(10)].map((_, i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="bg-gray-800 rounded-lg h-80 mb-2"></div>
+                  <div className="bg-gray-800 rounded h-4 mb-1"></div>
+                  <div className="bg-gray-800 rounded h-3 w-2/3"></div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <MoviesGrid movies={upcomingMovies} showRank={false} />
+          )}
+        </div>
+        
+
         {/* Features Section */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           <div className="text-center p-6 bg-gray-800 rounded-lg">
@@ -164,9 +223,16 @@ function Home() {
           </div>
           <div className="text-center p-6 bg-gray-800 rounded-lg">
             <div className="text-4xl mb-4">🔍</div>
-            <h3 className="text-xl font-semibold text-white mb-2">Smart Search</h3>
+            <h3 className="text-xl font-semibold text-white mb-2">Find Movies by Actor</h3>
             <p className="text-gray-400">
-              Find your favorite movies quickly with our powerful search functionality
+              Can't remember the movie title? Search by actor name to find their movies
+            </p>
+          </div>
+          <div className="text-center p-6 bg-gray-800 rounded-lg">
+            <div className="text-4xl mb-4">🎭</div>
+            <h3 className="text-xl font-semibold text-white mb-2">Cast & Crew</h3>
+            <p className="text-gray-400">
+              Explore detailed cast, crew, and genre information for every movie
             </p>
           </div>
           <div className="text-center p-6 bg-gray-800 rounded-lg">
