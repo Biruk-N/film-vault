@@ -1,6 +1,7 @@
 {
-  "name": "",
-  "short_name": "",
+  "name": "FilmVault - Discover Trending & Popular Movies",
+  "short_name": "FilmVault",
+  "description": "Explore the latest trending and most popular movies from around the world. Browse thousands of films with ratings, reviews, and high-quality posters.",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +14,12 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  "theme_color": "#1f2937",
+  "background_color": "#111827",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "categories": ["entertainment", "movies", "film"],
+  "lang": "en",
+  "orientation": "portrait-primary"
 }

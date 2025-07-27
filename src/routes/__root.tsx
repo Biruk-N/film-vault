@@ -11,7 +11,7 @@ import * as React from 'react'
 import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary'
 import { NotFound } from '~/components/NotFound'
 import appCss from '~/styles/app.css?url'
-import { seo } from '~/utils/seo'
+import { seo, seoPresets } from '~/utils/seo'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -23,11 +23,7 @@ export const Route = createRootRoute({
         name: 'viewport',
         content: 'width=device-width, initial-scale=1',
       },
-      ...seo({
-        title:
-          'TanStack Start | Type-Safe, Client-First, Full-Stack React Framework',
-        description: `TanStack Start is a type-safe, client-first, full-stack React framework. `,
-      }),
+      ...seo(seoPresets.home),
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
@@ -48,8 +44,12 @@ export const Route = createRootRoute({
         sizes: '16x16',
         href: '/favicon-16x16.png',
       },
-      { rel: 'manifest', href: '/site.webmanifest', color: '#fffff' },
+      { rel: 'manifest', href: '/site.webmanifest' },
       { rel: 'icon', href: '/favicon.ico' },
+      // Additional SEO-friendly links
+      { rel: 'canonical', href: 'https://film-vault-popular.netlify.app' },
+      { rel: 'dns-prefetch', href: 'https://api.themoviedb.org' },
+      { rel: 'dns-prefetch', href: 'https://image.tmdb.org' },
     ],
     scripts: [
       {
