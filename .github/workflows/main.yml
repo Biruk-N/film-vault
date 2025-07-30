@@ -3,7 +3,7 @@ name: FilmVault CI/CD
 on:
   pull_request:
     branches:
-      - main
+      - dev
     types:
       - closed
   
