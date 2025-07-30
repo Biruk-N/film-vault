@@ -19,6 +19,7 @@ export interface TMDBMovie {
   original_language?: string
   original_title?: string
   video?: boolean
+  imdb_id?: string
 }
 
 export interface MovieSearchResult {
