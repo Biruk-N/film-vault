@@ -10,11 +10,9 @@ import {
   getMovieDetails,
   getUpcomingMovies,
   getMovieCredits,
-  type TMDBMovie,
-  type MovieCredits,
-  type MultiSearchResult,
-  type Person
-} from '~/lib/secure-tmdb-api'
+  getPersonMovies,
+} from '~/lib/backend-tmdb'
+import type { TMDBMovie, MovieCredits, MultiSearchResult, Person } from '~/lib/secure-tmdb-api'
 
 // Query keys
 export const tmdbKeys = {
@@ -30,6 +28,8 @@ export const tmdbKeys = {
   topRated: (page: number) => [...tmdbKeys.movies(), 'topRated', page] as const,
   nowPlaying: (page: number) => [...tmdbKeys.movies(), 'nowPlaying', page] as const,
   upcoming: (page: number) => [...tmdbKeys.movies(), 'upcoming', page] as const,
+  personMovies: (id: number, page: number, type: string, perPage: number) =>
+    [...tmdbKeys.all, 'person', id, 'movies', page, type, perPage] as const,
 }
 
 // Hook for searching movies
@@ -63,47 +63,56 @@ export function useSearchPeople(query: string) {
 }
 
 // Hook for getting popular movies
-export function usePopularMovies(page: number = 1) {
+export function usePopularMovies(page: number = 1, options?: { enabled?: boolean }) {
   return useQuery({
     queryKey: tmdbKeys.popular(page),
     queryFn: () => getPopularMovies(page),
     staleTime: 5 * 60 * 1000, // 5 minutes
+    enabled: options?.enabled ?? true,
   })
 }
 
 // Hook for getting trending movies
-export function useTrendingMovies(timeWindow: 'day' | 'week' = 'day', page: number = 1) {
+export function useTrendingMovies(
+  timeWindow: 'day' | 'week' = 'day',
+  page: number = 1,
+  options?: { enabled?: boolean },
+) {
   return useQuery({
     queryKey: tmdbKeys.trending(timeWindow, page),
     queryFn: () => getTrendingMovies(timeWindow, page),
     staleTime: 5 * 60 * 1000, // 5 minutes
+    enabled: options?.enabled ?? true,
   })
 }
 
 // Hook for getting top rated movies
-export function useTopRatedMovies(page: number = 1) {
+export function useTopRatedMovies(page: number = 1, options?: { enabled?: boolean }) {
   return useQuery({
     queryKey: tmdbKeys.topRated(page),
     queryFn: () => getTopRatedMovies(page),
     staleTime: 10 * 60 * 1000, // 10 minutes
+    enabled: options?.enabled ?? true,
   })
 }
 
 // Hook for getting now playing movies
-export function useNowPlayingMovies(page: number = 1) {
+export function useNowPlayingMovies(page: number = 1, options?: { enabled?: boolean }) {
   return useQuery({
     queryKey: tmdbKeys.nowPlaying(page),
     queryFn: () => getNowPlayingMovies(page),
     staleTime: 5 * 60 * 1000, // 5 minutes
+    enabled: options?.enabled ?? true,
   })
 }
 
 // Hook for getting upcoming movies
-export function useUpcomingMovies(page: number = 1) {
+export function useUpcomingMovies(page: number = 1, options?: { enabled?: boolean }) {
   return useQuery({
     queryKey: tmdbKeys.upcoming(page),
     queryFn: () => getUpcomingMovies(page),
     staleTime: 5 * 60 * 1000, // 5 minutes
+    enabled: options?.enabled ?? true,
   })
 }
 
@@ -125,4 +134,21 @@ export function useMovieCredits(tmdbId: number | null) {
     enabled: !!tmdbId,
     staleTime: 10 * 60 * 1000, // 10 minutes
   })
-} 
+}
+
+// Hook for a person's filmography (movies only), merged with role/department
+export function usePersonMovies(
+  personId: number | null,
+  page: number = 1,
+  type: 'all' | 'cast' | 'crew' = 'all',
+  perPage: number = 20,
+  options?: { enabled?: boolean }
+) {
+  return useQuery({
+    queryKey: tmdbKeys.personMovies(personId || 0, page, type, perPage),
+    queryFn: () => getPersonMovies(personId!, page, perPage, type),
+    enabled: (options?.enabled ?? true) && !!personId,
+    placeholderData: (prev) => prev,
+    staleTime: 5 * 60 * 1000,
+  })
+}

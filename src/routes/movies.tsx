@@ -40,18 +40,25 @@ function MoviesPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [moviesPerPage] = useState(20);
 
-  const { data: popularData, isLoading: popularLoading } =
-    usePopularMovies(currentPage);
+  const { data: popularData, isLoading: popularLoading } = usePopularMovies(
+    currentPage,
+    { enabled: selectedCategory === "popular" }
+  );
   const { data: trendingData, isLoading: trendingLoading } = useTrendingMovies(
     "day",
-    currentPage
+    currentPage,
+    { enabled: selectedCategory === "trending" }
   );
-  const { data: topRatedData, isLoading: topRatedLoading } =
-    useTopRatedMovies(currentPage);
+  const { data: topRatedData, isLoading: topRatedLoading } = useTopRatedMovies(
+    currentPage,
+    { enabled: selectedCategory === "topRated" }
+  );
   const { data: nowPlayingData, isLoading: nowPlayingLoading } =
-    useNowPlayingMovies(currentPage);
-  const { data: upcomingData, isLoading: upcomingLoading } =
-    useUpcomingMovies(currentPage);
+    useNowPlayingMovies(currentPage, { enabled: selectedCategory === "nowPlaying" });
+  const { data: upcomingData, isLoading: upcomingLoading } = useUpcomingMovies(
+    currentPage,
+    { enabled: selectedCategory === "upcoming" }
+  );
 
   const getCurrentData = () => {
     switch (selectedCategory) {
@@ -172,6 +179,7 @@ function MoviesPage() {
                 ? true
                 : false
             }
+            rankOffset={(currentPage - 1) * moviesPerPage}
           />
         )}
 

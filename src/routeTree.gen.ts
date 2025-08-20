@@ -25,12 +25,26 @@ import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
 import { Route as MovieMovieIdRouteImport } from './routes/movie.$movieId'
 import { Route as PathlessLayoutNestedLayoutRouteImport } from './routes/_pathlessLayout/_nested-layout'
+import { Route as _adminAnalyticsRouteImport } from './routes/__admin.analytics'
 import { Route as PostsPostIdDeepRouteImport } from './routes/posts_.$postId.deep'
 import { Route as PathlessLayoutNestedLayoutRouteBRouteImport } from './routes/_pathlessLayout/_nested-layout/route-b'
 import { Route as PathlessLayoutNestedLayoutRouteARouteImport } from './routes/_pathlessLayout/_nested-layout/route-a'
 import { ServerRoute as CustomScriptDotjsServerRouteImport } from './routes/customScript[.]js'
 import { ServerRoute as ApiUsersServerRouteImport } from './routes/api/users'
 import { ServerRoute as ApiUsersUserIdServerRouteImport } from './routes/api/users.$userId'
+import { ServerRoute as ApiTmdbSearchServerRouteImport } from './routes/api/tmdb/search'
+import { ServerRoute as ApiTmdbMultiSearchServerRouteImport } from './routes/api/tmdb/multi-search'
+import { ServerRoute as ApiAnalyticsVisitServerRouteImport } from './routes/api/analytics/visit'
+import { ServerRoute as ApiAnalyticsSummaryServerRouteImport } from './routes/api/analytics/summary'
+import { ServerRoute as ApiTmdbPeopleSearchServerRouteImport } from './routes/api/tmdb/people.search'
+import { ServerRoute as ApiTmdbMoviesUpcomingServerRouteImport } from './routes/api/tmdb/movies.upcoming'
+import { ServerRoute as ApiTmdbMoviesTrendingServerRouteImport } from './routes/api/tmdb/movies.trending'
+import { ServerRoute as ApiTmdbMoviesTopRatedServerRouteImport } from './routes/api/tmdb/movies.top-rated'
+import { ServerRoute as ApiTmdbMoviesPopularServerRouteImport } from './routes/api/tmdb/movies.popular'
+import { ServerRoute as ApiTmdbMoviesNowPlayingServerRouteImport } from './routes/api/tmdb/movies.now-playing'
+import { ServerRoute as ApiTmdbMoviesIdServerRouteImport } from './routes/api/tmdb/movies.$id'
+import { ServerRoute as ApiTmdbPeopleIdMoviesServerRouteImport } from './routes/api/tmdb/people.$id.movies'
+import { ServerRoute as ApiTmdbMoviesIdCreditsServerRouteImport } from './routes/api/tmdb/movies.$id.credits'
 
 const rootServerRouteImport = createServerRootRoute()
 
@@ -103,6 +117,11 @@ const PathlessLayoutNestedLayoutRoute =
     id: '/_nested-layout',
     getParentRoute: () => PathlessLayoutRoute,
   } as any)
+const _adminAnalyticsRoute = _adminAnalyticsRouteImport.update({
+  id: '/__admin/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PostsPostIdDeepRoute = PostsPostIdDeepRouteImport.update({
   id: '/posts_/$postId/deep',
   path: '/posts/$postId/deep',
@@ -135,6 +154,81 @@ const ApiUsersUserIdServerRoute = ApiUsersUserIdServerRouteImport.update({
   path: '/$userId',
   getParentRoute: () => ApiUsersServerRoute,
 } as any)
+const ApiTmdbSearchServerRoute = ApiTmdbSearchServerRouteImport.update({
+  id: '/api/tmdb/search',
+  path: '/api/tmdb/search',
+  getParentRoute: () => rootServerRouteImport,
+} as any)
+const ApiTmdbMultiSearchServerRoute =
+  ApiTmdbMultiSearchServerRouteImport.update({
+    id: '/api/tmdb/multi-search',
+    path: '/api/tmdb/multi-search',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
+const ApiAnalyticsVisitServerRoute = ApiAnalyticsVisitServerRouteImport.update({
+  id: '/api/analytics/visit',
+  path: '/api/analytics/visit',
+  getParentRoute: () => rootServerRouteImport,
+} as any)
+const ApiAnalyticsSummaryServerRoute =
+  ApiAnalyticsSummaryServerRouteImport.update({
+    id: '/api/analytics/summary',
+    path: '/api/analytics/summary',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
+const ApiTmdbPeopleSearchServerRoute =
+  ApiTmdbPeopleSearchServerRouteImport.update({
+    id: '/api/tmdb/people/search',
+    path: '/api/tmdb/people/search',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
+const ApiTmdbMoviesUpcomingServerRoute =
+  ApiTmdbMoviesUpcomingServerRouteImport.update({
+    id: '/api/tmdb/movies/upcoming',
+    path: '/api/tmdb/movies/upcoming',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
+const ApiTmdbMoviesTrendingServerRoute =
+  ApiTmdbMoviesTrendingServerRouteImport.update({
+    id: '/api/tmdb/movies/trending',
+    path: '/api/tmdb/movies/trending',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
+const ApiTmdbMoviesTopRatedServerRoute =
+  ApiTmdbMoviesTopRatedServerRouteImport.update({
+    id: '/api/tmdb/movies/top-rated',
+    path: '/api/tmdb/movies/top-rated',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
+const ApiTmdbMoviesPopularServerRoute =
+  ApiTmdbMoviesPopularServerRouteImport.update({
+    id: '/api/tmdb/movies/popular',
+    path: '/api/tmdb/movies/popular',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
+const ApiTmdbMoviesNowPlayingServerRoute =
+  ApiTmdbMoviesNowPlayingServerRouteImport.update({
+    id: '/api/tmdb/movies/now-playing',
+    path: '/api/tmdb/movies/now-playing',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
+const ApiTmdbMoviesIdServerRoute = ApiTmdbMoviesIdServerRouteImport.update({
+  id: '/api/tmdb/movies/$id',
+  path: '/api/tmdb/movies/$id',
+  getParentRoute: () => rootServerRouteImport,
+} as any)
+const ApiTmdbPeopleIdMoviesServerRoute =
+  ApiTmdbPeopleIdMoviesServerRouteImport.update({
+    id: '/api/tmdb/people/$id/movies',
+    path: '/api/tmdb/people/$id/movies',
+    getParentRoute: () => rootServerRouteImport,
+  } as any)
+const ApiTmdbMoviesIdCreditsServerRoute =
+  ApiTmdbMoviesIdCreditsServerRouteImport.update({
+    id: '/credits',
+    path: '/credits',
+    getParentRoute: () => ApiTmdbMoviesIdServerRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -144,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/redirect': typeof RedirectRoute
   '/search': typeof SearchRoute
   '/users': typeof UsersRouteWithChildren
+  '/analytics': typeof _adminAnalyticsRoute
   '/movie/$movieId': typeof MovieMovieIdRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
@@ -159,6 +254,7 @@ export interface FileRoutesByTo {
   '/movies': typeof MoviesRoute
   '/redirect': typeof RedirectRoute
   '/search': typeof SearchRoute
+  '/analytics': typeof _adminAnalyticsRoute
   '/movie/$movieId': typeof MovieMovieIdRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
@@ -178,6 +274,7 @@ export interface FileRoutesById {
   '/redirect': typeof RedirectRoute
   '/search': typeof SearchRoute
   '/users': typeof UsersRouteWithChildren
+  '/__admin/analytics': typeof _adminAnalyticsRoute
   '/_pathlessLayout/_nested-layout': typeof PathlessLayoutNestedLayoutRouteWithChildren
   '/movie/$movieId': typeof MovieMovieIdRoute
   '/posts/$postId': typeof PostsPostIdRoute
@@ -198,6 +295,7 @@ export interface FileRouteTypes {
     | '/redirect'
     | '/search'
     | '/users'
+    | '/analytics'
     | '/movie/$movieId'
     | '/posts/$postId'
     | '/users/$userId'
@@ -213,6 +311,7 @@ export interface FileRouteTypes {
     | '/movies'
     | '/redirect'
     | '/search'
+    | '/analytics'
     | '/movie/$movieId'
     | '/posts/$postId'
     | '/users/$userId'
@@ -231,6 +330,7 @@ export interface FileRouteTypes {
     | '/redirect'
     | '/search'
     | '/users'
+    | '/__admin/analytics'
     | '/_pathlessLayout/_nested-layout'
     | '/movie/$movieId'
     | '/posts/$postId'
@@ -251,36 +351,137 @@ export interface RootRouteChildren {
   RedirectRoute: typeof RedirectRoute
   SearchRoute: typeof SearchRoute
   UsersRoute: typeof UsersRouteWithChildren
+  _adminAnalyticsRoute: typeof _adminAnalyticsRoute
   MovieMovieIdRoute: typeof MovieMovieIdRoute
   PostsPostIdDeepRoute: typeof PostsPostIdDeepRoute
 }
 export interface FileServerRoutesByFullPath {
   '/customScript.js': typeof CustomScriptDotjsServerRoute
   '/api/users': typeof ApiUsersServerRouteWithChildren
+  '/api/analytics/summary': typeof ApiAnalyticsSummaryServerRoute
+  '/api/analytics/visit': typeof ApiAnalyticsVisitServerRoute
+  '/api/tmdb/multi-search': typeof ApiTmdbMultiSearchServerRoute
+  '/api/tmdb/search': typeof ApiTmdbSearchServerRoute
   '/api/users/$userId': typeof ApiUsersUserIdServerRoute
+  '/api/tmdb/movies/$id': typeof ApiTmdbMoviesIdServerRouteWithChildren
+  '/api/tmdb/movies/now-playing': typeof ApiTmdbMoviesNowPlayingServerRoute
+  '/api/tmdb/movies/popular': typeof ApiTmdbMoviesPopularServerRoute
+  '/api/tmdb/movies/top-rated': typeof ApiTmdbMoviesTopRatedServerRoute
+  '/api/tmdb/movies/trending': typeof ApiTmdbMoviesTrendingServerRoute
+  '/api/tmdb/movies/upcoming': typeof ApiTmdbMoviesUpcomingServerRoute
+  '/api/tmdb/people/search': typeof ApiTmdbPeopleSearchServerRoute
+  '/api/tmdb/movies/$id/credits': typeof ApiTmdbMoviesIdCreditsServerRoute
+  '/api/tmdb/people/$id/movies': typeof ApiTmdbPeopleIdMoviesServerRoute
 }
 export interface FileServerRoutesByTo {
   '/customScript.js': typeof CustomScriptDotjsServerRoute
   '/api/users': typeof ApiUsersServerRouteWithChildren
+  '/api/analytics/summary': typeof ApiAnalyticsSummaryServerRoute
+  '/api/analytics/visit': typeof ApiAnalyticsVisitServerRoute
+  '/api/tmdb/multi-search': typeof ApiTmdbMultiSearchServerRoute
+  '/api/tmdb/search': typeof ApiTmdbSearchServerRoute
   '/api/users/$userId': typeof ApiUsersUserIdServerRoute
+  '/api/tmdb/movies/$id': typeof ApiTmdbMoviesIdServerRouteWithChildren
+  '/api/tmdb/movies/now-playing': typeof ApiTmdbMoviesNowPlayingServerRoute
+  '/api/tmdb/movies/popular': typeof ApiTmdbMoviesPopularServerRoute
+  '/api/tmdb/movies/top-rated': typeof ApiTmdbMoviesTopRatedServerRoute
+  '/api/tmdb/movies/trending': typeof ApiTmdbMoviesTrendingServerRoute
+  '/api/tmdb/movies/upcoming': typeof ApiTmdbMoviesUpcomingServerRoute
+  '/api/tmdb/people/search': typeof ApiTmdbPeopleSearchServerRoute
+  '/api/tmdb/movies/$id/credits': typeof ApiTmdbMoviesIdCreditsServerRoute
+  '/api/tmdb/people/$id/movies': typeof ApiTmdbPeopleIdMoviesServerRoute
 }
 export interface FileServerRoutesById {
   __root__: typeof rootServerRouteImport
   '/customScript.js': typeof CustomScriptDotjsServerRoute
   '/api/users': typeof ApiUsersServerRouteWithChildren
+  '/api/analytics/summary': typeof ApiAnalyticsSummaryServerRoute
+  '/api/analytics/visit': typeof ApiAnalyticsVisitServerRoute
+  '/api/tmdb/multi-search': typeof ApiTmdbMultiSearchServerRoute
+  '/api/tmdb/search': typeof ApiTmdbSearchServerRoute
   '/api/users/$userId': typeof ApiUsersUserIdServerRoute
+  '/api/tmdb/movies/$id': typeof ApiTmdbMoviesIdServerRouteWithChildren
+  '/api/tmdb/movies/now-playing': typeof ApiTmdbMoviesNowPlayingServerRoute
+  '/api/tmdb/movies/popular': typeof ApiTmdbMoviesPopularServerRoute
+  '/api/tmdb/movies/top-rated': typeof ApiTmdbMoviesTopRatedServerRoute
+  '/api/tmdb/movies/trending': typeof ApiTmdbMoviesTrendingServerRoute
+  '/api/tmdb/movies/upcoming': typeof ApiTmdbMoviesUpcomingServerRoute
+  '/api/tmdb/people/search': typeof ApiTmdbPeopleSearchServerRoute
+  '/api/tmdb/movies/$id/credits': typeof ApiTmdbMoviesIdCreditsServerRoute
+  '/api/tmdb/people/$id/movies': typeof ApiTmdbPeopleIdMoviesServerRoute
 }
 export interface FileServerRouteTypes {
   fileServerRoutesByFullPath: FileServerRoutesByFullPath
-  fullPaths: '/customScript.js' | '/api/users' | '/api/users/$userId'
+  fullPaths:
+    | '/customScript.js'
+    | '/api/users'
+    | '/api/analytics/summary'
+    | '/api/analytics/visit'
+    | '/api/tmdb/multi-search'
+    | '/api/tmdb/search'
+    | '/api/users/$userId'
+    | '/api/tmdb/movies/$id'
+    | '/api/tmdb/movies/now-playing'
+    | '/api/tmdb/movies/popular'
+    | '/api/tmdb/movies/top-rated'
+    | '/api/tmdb/movies/trending'
+    | '/api/tmdb/movies/upcoming'
+    | '/api/tmdb/people/search'
+    | '/api/tmdb/movies/$id/credits'
+    | '/api/tmdb/people/$id/movies'
   fileServerRoutesByTo: FileServerRoutesByTo
-  to: '/customScript.js' | '/api/users' | '/api/users/$userId'
-  id: '__root__' | '/customScript.js' | '/api/users' | '/api/users/$userId'
+  to:
+    | '/customScript.js'
+    | '/api/users'
+    | '/api/analytics/summary'
+    | '/api/analytics/visit'
+    | '/api/tmdb/multi-search'
+    | '/api/tmdb/search'
+    | '/api/users/$userId'
+    | '/api/tmdb/movies/$id'
+    | '/api/tmdb/movies/now-playing'
+    | '/api/tmdb/movies/popular'
+    | '/api/tmdb/movies/top-rated'
+    | '/api/tmdb/movies/trending'
+    | '/api/tmdb/movies/upcoming'
+    | '/api/tmdb/people/search'
+    | '/api/tmdb/movies/$id/credits'
+    | '/api/tmdb/people/$id/movies'
+  id:
+    | '__root__'
+    | '/customScript.js'
+    | '/api/users'
+    | '/api/analytics/summary'
+    | '/api/analytics/visit'
+    | '/api/tmdb/multi-search'
+    | '/api/tmdb/search'
+    | '/api/users/$userId'
+    | '/api/tmdb/movies/$id'
+    | '/api/tmdb/movies/now-playing'
+    | '/api/tmdb/movies/popular'
+    | '/api/tmdb/movies/top-rated'
+    | '/api/tmdb/movies/trending'
+    | '/api/tmdb/movies/upcoming'
+    | '/api/tmdb/people/search'
+    | '/api/tmdb/movies/$id/credits'
+    | '/api/tmdb/people/$id/movies'
   fileServerRoutesById: FileServerRoutesById
 }
 export interface RootServerRouteChildren {
   CustomScriptDotjsServerRoute: typeof CustomScriptDotjsServerRoute
   ApiUsersServerRoute: typeof ApiUsersServerRouteWithChildren
+  ApiAnalyticsSummaryServerRoute: typeof ApiAnalyticsSummaryServerRoute
+  ApiAnalyticsVisitServerRoute: typeof ApiAnalyticsVisitServerRoute
+  ApiTmdbMultiSearchServerRoute: typeof ApiTmdbMultiSearchServerRoute
+  ApiTmdbSearchServerRoute: typeof ApiTmdbSearchServerRoute
+  ApiTmdbMoviesIdServerRoute: typeof ApiTmdbMoviesIdServerRouteWithChildren
+  ApiTmdbMoviesNowPlayingServerRoute: typeof ApiTmdbMoviesNowPlayingServerRoute
+  ApiTmdbMoviesPopularServerRoute: typeof ApiTmdbMoviesPopularServerRoute
+  ApiTmdbMoviesTopRatedServerRoute: typeof ApiTmdbMoviesTopRatedServerRoute
+  ApiTmdbMoviesTrendingServerRoute: typeof ApiTmdbMoviesTrendingServerRoute
+  ApiTmdbMoviesUpcomingServerRoute: typeof ApiTmdbMoviesUpcomingServerRoute
+  ApiTmdbPeopleSearchServerRoute: typeof ApiTmdbPeopleSearchServerRoute
+  ApiTmdbPeopleIdMoviesServerRoute: typeof ApiTmdbPeopleIdMoviesServerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -383,6 +584,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PathlessLayoutNestedLayoutRouteImport
       parentRoute: typeof PathlessLayoutRoute
     }
+    '/__admin/analytics': {
+      id: '/__admin/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof _adminAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/posts_/$postId/deep': {
       id: '/posts_/$postId/deep'
       path: '/posts/$postId/deep'
@@ -428,6 +636,97 @@ declare module '@tanstack/react-start/server' {
       fullPath: '/api/users/$userId'
       preLoaderRoute: typeof ApiUsersUserIdServerRouteImport
       parentRoute: typeof ApiUsersServerRoute
+    }
+    '/api/tmdb/search': {
+      id: '/api/tmdb/search'
+      path: '/api/tmdb/search'
+      fullPath: '/api/tmdb/search'
+      preLoaderRoute: typeof ApiTmdbSearchServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/tmdb/multi-search': {
+      id: '/api/tmdb/multi-search'
+      path: '/api/tmdb/multi-search'
+      fullPath: '/api/tmdb/multi-search'
+      preLoaderRoute: typeof ApiTmdbMultiSearchServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/analytics/visit': {
+      id: '/api/analytics/visit'
+      path: '/api/analytics/visit'
+      fullPath: '/api/analytics/visit'
+      preLoaderRoute: typeof ApiAnalyticsVisitServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/analytics/summary': {
+      id: '/api/analytics/summary'
+      path: '/api/analytics/summary'
+      fullPath: '/api/analytics/summary'
+      preLoaderRoute: typeof ApiAnalyticsSummaryServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/tmdb/people/search': {
+      id: '/api/tmdb/people/search'
+      path: '/api/tmdb/people/search'
+      fullPath: '/api/tmdb/people/search'
+      preLoaderRoute: typeof ApiTmdbPeopleSearchServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/tmdb/movies/upcoming': {
+      id: '/api/tmdb/movies/upcoming'
+      path: '/api/tmdb/movies/upcoming'
+      fullPath: '/api/tmdb/movies/upcoming'
+      preLoaderRoute: typeof ApiTmdbMoviesUpcomingServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/tmdb/movies/trending': {
+      id: '/api/tmdb/movies/trending'
+      path: '/api/tmdb/movies/trending'
+      fullPath: '/api/tmdb/movies/trending'
+      preLoaderRoute: typeof ApiTmdbMoviesTrendingServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/tmdb/movies/top-rated': {
+      id: '/api/tmdb/movies/top-rated'
+      path: '/api/tmdb/movies/top-rated'
+      fullPath: '/api/tmdb/movies/top-rated'
+      preLoaderRoute: typeof ApiTmdbMoviesTopRatedServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/tmdb/movies/popular': {
+      id: '/api/tmdb/movies/popular'
+      path: '/api/tmdb/movies/popular'
+      fullPath: '/api/tmdb/movies/popular'
+      preLoaderRoute: typeof ApiTmdbMoviesPopularServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/tmdb/movies/now-playing': {
+      id: '/api/tmdb/movies/now-playing'
+      path: '/api/tmdb/movies/now-playing'
+      fullPath: '/api/tmdb/movies/now-playing'
+      preLoaderRoute: typeof ApiTmdbMoviesNowPlayingServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/tmdb/movies/$id': {
+      id: '/api/tmdb/movies/$id'
+      path: '/api/tmdb/movies/$id'
+      fullPath: '/api/tmdb/movies/$id'
+      preLoaderRoute: typeof ApiTmdbMoviesIdServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/tmdb/people/$id/movies': {
+      id: '/api/tmdb/people/$id/movies'
+      path: '/api/tmdb/people/$id/movies'
+      fullPath: '/api/tmdb/people/$id/movies'
+      preLoaderRoute: typeof ApiTmdbPeopleIdMoviesServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/tmdb/movies/$id/credits': {
+      id: '/api/tmdb/movies/$id/credits'
+      path: '/credits'
+      fullPath: '/api/tmdb/movies/$id/credits'
+      preLoaderRoute: typeof ApiTmdbMoviesIdCreditsServerRouteImport
+      parentRoute: typeof ApiTmdbMoviesIdServerRoute
     }
   }
 }
@@ -498,6 +797,19 @@ const ApiUsersServerRouteWithChildren = ApiUsersServerRoute._addFileChildren(
   ApiUsersServerRouteChildren,
 )
 
+interface ApiTmdbMoviesIdServerRouteChildren {
+  ApiTmdbMoviesIdCreditsServerRoute: typeof ApiTmdbMoviesIdCreditsServerRoute
+}
+
+const ApiTmdbMoviesIdServerRouteChildren: ApiTmdbMoviesIdServerRouteChildren = {
+  ApiTmdbMoviesIdCreditsServerRoute: ApiTmdbMoviesIdCreditsServerRoute,
+}
+
+const ApiTmdbMoviesIdServerRouteWithChildren =
+  ApiTmdbMoviesIdServerRoute._addFileChildren(
+    ApiTmdbMoviesIdServerRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PathlessLayoutRoute: PathlessLayoutRouteWithChildren,
@@ -507,6 +819,7 @@ const rootRouteChildren: RootRouteChildren = {
   RedirectRoute: RedirectRoute,
   SearchRoute: SearchRoute,
   UsersRoute: UsersRouteWithChildren,
+  _adminAnalyticsRoute: _adminAnalyticsRoute,
   MovieMovieIdRoute: MovieMovieIdRoute,
   PostsPostIdDeepRoute: PostsPostIdDeepRoute,
 }
@@ -516,6 +829,18 @@ export const routeTree = rootRouteImport
 const rootServerRouteChildren: RootServerRouteChildren = {
   CustomScriptDotjsServerRoute: CustomScriptDotjsServerRoute,
   ApiUsersServerRoute: ApiUsersServerRouteWithChildren,
+  ApiAnalyticsSummaryServerRoute: ApiAnalyticsSummaryServerRoute,
+  ApiAnalyticsVisitServerRoute: ApiAnalyticsVisitServerRoute,
+  ApiTmdbMultiSearchServerRoute: ApiTmdbMultiSearchServerRoute,
+  ApiTmdbSearchServerRoute: ApiTmdbSearchServerRoute,
+  ApiTmdbMoviesIdServerRoute: ApiTmdbMoviesIdServerRouteWithChildren,
+  ApiTmdbMoviesNowPlayingServerRoute: ApiTmdbMoviesNowPlayingServerRoute,
+  ApiTmdbMoviesPopularServerRoute: ApiTmdbMoviesPopularServerRoute,
+  ApiTmdbMoviesTopRatedServerRoute: ApiTmdbMoviesTopRatedServerRoute,
+  ApiTmdbMoviesTrendingServerRoute: ApiTmdbMoviesTrendingServerRoute,
+  ApiTmdbMoviesUpcomingServerRoute: ApiTmdbMoviesUpcomingServerRoute,
+  ApiTmdbPeopleSearchServerRoute: ApiTmdbPeopleSearchServerRoute,
+  ApiTmdbPeopleIdMoviesServerRoute: ApiTmdbPeopleIdMoviesServerRoute,
 }
 export const serverRouteTree = rootServerRouteImport
   ._addFileChildren(rootServerRouteChildren)
