@@ -62,6 +62,33 @@ export interface MovieCredits {
   crew: CastMember[]
 }
 
+// Person combined credits (movies and TV). We'll filter to movies at usage sites
+export interface PersonCombinedCredits {
+  cast: Array<{
+    id: number
+    media_type: string
+    title?: string
+    character?: string
+    job?: string
+    department?: string
+    release_date?: string
+    popularity?: number
+    poster_path?: string | null
+  }>
+  crew: Array<{
+    id: number
+    media_type: string
+    title?: string
+    character?: string
+    job?: string
+    department?: string
+    release_date?: string
+    popularity?: number
+    poster_path?: string | null
+  }>
+  id: number
+}
+
 // Multi-search result interface
 export interface MultiSearchResult {
   page: number
@@ -262,4 +289,14 @@ export async function getMovieCredits(tmdbId: number): Promise<MovieCredits | nu
     console.error('Error fetching movie credits:', error)
     return null
   }
-} 
+}
+
+// Get person combined credits (cast and crew across movies and TV)
+export async function getPersonCombinedCredits(personId: number): Promise<PersonCombinedCredits | null> {
+  try {
+    return await secureApiCall(`/person/${personId}/combined_credits`)
+  } catch (error) {
+    console.error('Error fetching person combined credits:', error)
+    return null
+  }
+}

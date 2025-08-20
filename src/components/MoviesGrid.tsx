@@ -6,9 +6,11 @@ import type { TMDBMovie } from '~/lib/secure-tmdb-api'
 interface MoviesGridProps {
   movies: (Movie | TMDBMovie)[]
   showRank?: boolean
+  rankOffset?: number // starting offset for rank numbering (e.g., (page-1)*pageSize)
 }
 
-export function MoviesGrid({ movies, showRank = false }: MoviesGridProps) {
+export function MoviesGrid({ movies, showRank = false, rankOffset = 0 }: MoviesGridProps) {
+
   if (movies.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-gray-400">
@@ -22,6 +24,7 @@ export function MoviesGrid({ movies, showRank = false }: MoviesGridProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-6">
       {movies.map((movie, index) => {
+
         // Check if it's a TMDBMovie by looking for TMDB-specific properties
         const isTMDBMovie = 'poster_path' in movie && 'vote_average' in movie
         
@@ -30,7 +33,7 @@ export function MoviesGrid({ movies, showRank = false }: MoviesGridProps) {
             <TMDBMovieCard 
               key={movie.id} 
               movie={movie as TMDBMovie} 
-              rank={showRank ? index + 1 : undefined}
+              rank={showRank ? index + 1 + rankOffset : undefined}
             />
           )
         } else {
@@ -38,11 +41,11 @@ export function MoviesGrid({ movies, showRank = false }: MoviesGridProps) {
             <MovieCard 
               key={movie.id} 
               movie={movie as Movie} 
-              rank={showRank ? index + 1 : undefined}
+              rank={showRank ? index + 1 + rankOffset : undefined}
             />
           )
         }
       })}
     </div>
   )
-} 
+}
