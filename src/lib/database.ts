@@ -1,6 +1,8 @@
 import Database from 'better-sqlite3'
 import path from 'path'
 import crypto from 'crypto'
+import fs from 'fs'
+import os from 'os'
 
 // Database interface
 export interface Movie {
@@ -13,9 +15,19 @@ export interface Movie {
 // Initialize database
 let db: Database.Database | null = null
 
+function ensureTmpDbPath(): string {
+  const src = path.join(process.cwd(), 'data', 'movies.db')
+  const dst = path.join(os.tmpdir(), 'movies.db')
+  // Copy the bundled read-only DB to a writable tmp location on cold start
+  if (!fs.existsSync(dst)) {
+    fs.copyFileSync(src, dst)
+  }
+  return dst
+}
+
 export function getDatabase(): Database.Database {
   if (!db) {
-    const dbPath = path.join(process.cwd(), 'data', 'movies.db')
+    const dbPath = ensureTmpDbPath()
     db = new Database(dbPath)
     
     // Enable WAL mode for better performance
@@ -150,6 +162,18 @@ export function getVisitSummary(from?: string, to?: string): VisitSummary {
   ).all(from ?? null, from ?? null, to ?? null, to ?? null) as Array<{ day: string; count: number }>
 
   return { total, byRoute, byDay }
+}
+
+export function getUserAgentBreakdown(from?: string, to?: string): Array<{ userAgent: string | null; count: number }> {
+  const database = getDatabase()
+  const rows = database.prepare(
+    `SELECT user_agent as userAgent, COUNT(*) as count FROM visits
+     WHERE (? IS NULL OR ts >= ?)
+       AND (? IS NULL OR ts <= ?)
+     GROUP BY user_agent
+     ORDER BY count DESC`
+  ).all(from ?? null, from ?? null, to ?? null, to ?? null) as Array<{ userAgent: string | null; count: number }>
+  return rows
 }
 
 export function getVisits(limit = 50, offset = 0) {
