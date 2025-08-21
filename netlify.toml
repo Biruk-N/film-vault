@@ -4,7 +4,7 @@
 [functions]
   node_bundler = "esbuild"
   external_node_modules = ["better-sqlite3"]
-  included_files = ["data/movies.db"]
+  included_files = ["data/**"]
 
 [functions."*"]
   node_bundler = "esbuild"
