@@ -3,6 +3,7 @@ import path from 'path'
 import crypto from 'crypto'
 import fs from 'fs'
 import os from 'os'
+import { fileURLToPath } from 'url'
 
 // Database interface
 export interface Movie {
@@ -16,13 +17,40 @@ export interface Movie {
 let db: Database.Database | null = null
 
 function ensureTmpDbPath(): string {
-  const src = path.join(process.cwd(), 'data', 'movies.db')
   const dst = path.join(os.tmpdir(), 'movies.db')
-  // Copy the bundled read-only DB to a writable tmp location on cold start
-  if (!fs.existsSync(dst)) {
-    fs.copyFileSync(src, dst)
+
+  if (fs.existsSync(dst)) return dst
+
+  // Resolve source path robustly for Netlify/Nitro bundles
+  const moduleDir = path.dirname(fileURLToPath(import.meta.url))
+  const candidates = [
+    path.join(process.cwd(), 'data', 'movies.db'),
+    path.join(moduleDir, '../../data/movies.db'),
+    path.join(moduleDir, '../data/movies.db'),
+    path.join(moduleDir, '../../../data/movies.db'),
+    process.env.LAMBDA_TASK_ROOT ? path.join(process.env.LAMBDA_TASK_ROOT, 'data', 'movies.db') : '',
+  ].filter(Boolean) as string[]
+
+  const src = candidates.find((p) => p && fs.existsSync(p))
+  if (!src) {
+    // No bundled DB found. We'll create a fresh DB at /tmp and optionally seed from movies.sql later.
+    return dst
   }
+
+  fs.copyFileSync(src, dst)
   return dst
+}
+
+function findDataFile(filename: string): string | null {
+  const moduleDir = path.dirname(fileURLToPath(import.meta.url))
+  const candidates = [
+    path.join(process.cwd(), 'data', filename),
+    path.join(moduleDir, '../../data', filename),
+    path.join(moduleDir, '../data', filename),
+    path.join(moduleDir, '../../../data', filename),
+    process.env.LAMBDA_TASK_ROOT ? path.join(process.env.LAMBDA_TASK_ROOT, 'data', filename) : '',
+  ].filter(Boolean) as string[]
+  return candidates.find((p) => fs.existsSync(p)) || null
 }
 
 export function getDatabase(): Database.Database {
@@ -49,6 +77,30 @@ export function getDatabase(): Database.Database {
         meta TEXT
       )`
     ).run()
+
+    // Ensure movies table exists; if empty and we have a seed SQL, seed it
+    db.prepare(
+      `CREATE TABLE IF NOT EXISTS movies (
+        id INTEGER PRIMARY KEY,
+        title TEXT NOT NULL,
+        imdb_url TEXT NOT NULL,
+        poster_url TEXT NOT NULL
+      )`
+    ).run()
+
+    try {
+      const countRow = db.prepare(`SELECT COUNT(*) as count FROM movies`).get() as { count: number }
+      if (!countRow || countRow.count === 0) {
+        const seedPath = findDataFile('movies.sql')
+        if (seedPath) {
+          const sql = fs.readFileSync(seedPath, 'utf-8')
+          db.exec(sql)
+        }
+      }
+    } catch (e) {
+      // Best-effort seeding; ignore if something goes wrong
+      console.warn('Movies seed skipped:', (e as Error)?.message)
+    }
   }
   return db
 }
