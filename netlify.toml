@@ -2,12 +2,12 @@
   command = "npm run build"
 
 [functions]
-  node_bundler = "esbuild"
+  node_bundler = "zisi"
   external_node_modules = ["better-sqlite3"]
   included_files = ["data/**"]
 
 [functions."*"]
-  node_bundler = "esbuild"
+  node_bundler = "zisi"
 
 [build.environment]
   NODE_VERSION = "20"
